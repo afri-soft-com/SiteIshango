@@ -1,0 +1,72 @@
+﻿@using ClassLibraryIshangoBar.Menus
+@using System.IO
+@using Microsoft.AspNetCore.Hosting;
+@inject Microsoft.AspNetCore.Components.NavigationManager UriHelper
+@inject IWebHostEnvironment Environment
+
+@inject MenuDataAccessLayer menuDAL
+
+
+    <EditForm Model="menu" OnSubmit="HandleValidSubmit">
+
+        <DataAnnotationsValidator />
+        <ValidationSummary />
+
+        <div class="form-group col-md-12">
+            <InputFile OnChange="HandleFileSelected" class="form-control"   placeholder="image*" />
+        </div>
+        <div class="form-group col-md-12">
+            <InputText @bind-Value="menu.DescriptionMenu" class="form-control"  placeholder="Déscription*" />
+        </div>
+        <div class="form-group col-md-12">
+            <InputText @bind-Value="menu.PrixMenu" class="form-control"  placeholder="Prix*" />
+        </div>
+        <div class="form-group col-md-12">
+            <button class="btn btn-default submit_btn" type="submit">Enregistrer</button>
+        </div>
+
+    </EditForm>
+
+@code {
+
+    MenuModel menu = new MenuModel();
+
+    IFileListEntry imageMenu;
+
+
+    async Task HandleValidSubmit()
+    {
+        menuDAL.InsertMenu(menu);
+
+        if (imageMenu != null)
+        {
+            await SaveMenu(imageMenu, menuDAL.GetLesMenus().First());
+            menu = default;
+        }
+    }
+
+
+    void HandleFileSelected(IFileListEntry[] files)
+    {
+        imageMenu = files.First();
+    }
+
+    public async Task SaveMenu(IFileListEntry file, MenuModel menuModel)
+    {
+        var profileUploads = Path.Combine(Environment.WebRootPath, $"uploads/piece/{menuModel.IdMenu}");
+        if (!Directory.Exists(profileUploads))
+            Directory.CreateDirectory(profileUploads);
+        if (file.Data.Length > 0)
+        {
+            var fileNameArray = file.Name.Split(".");
+            var fileName = $"{fileNameArray.FirstOrDefault()}.{fileNameArray.LastOrDefault() ?? "png"}";
+            using var fileStream = new FileStream(Path.Combine(profileUploads, fileName), FileMode.Create);
+            await file.Data.CopyToAsync(fileStream);
+            var filePath = fileStream.Name.Replace(Environment.WebRootPath, UriHelper.BaseUri);
+            var fileWebPath = filePath.Replace("\\", "/");
+            menuModel.ImageMenu = fileWebPath;
+        }
+    }
+
+
+}

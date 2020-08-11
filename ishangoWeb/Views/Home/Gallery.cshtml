@@ -1,0 +1,138 @@
+﻿
+@{
+    ViewData["Title"] = "Gallery";
+}
+
+<div class="container-fluid" style="background:url(../lib/bootstrap/dist/img/banner/banner-bg-1.jpg) no-repeat scroll center center;
+                                        background-size:cover;">
+    <section class="banner_area">
+        <div class="container">
+            <div class="banner_content">
+                <h4>A propos de Ishango</h4>
+                <a asp-area="" asp-controller="Home" asp-action="Index">Accueil</a>
+                <a class="active" asp-area="" asp-controller="Home" asp-action="about">A propos de nous</a>
+            </div>
+        </div>
+    </section>
+</div>
+
+<!--================Our Gallery Area =================-->
+<section class="our_gallery_area">
+    <div class="container">
+        <div class="row our_gallery_ms_inner">
+            <div class="col-md-4 col-sm-6">
+                <div class="our_gallery_item">
+                    <img src="~/lib/bootstrap/dist/img/gallery/our-ms-gallery/gallery-1.png" alt="">
+                    <div class="our_gallery_hover">
+                        <a href="#"><i class="fa fa-link"></i></a>
+                        <a href="#"><h5>Réunion</h5></a>
+                        <p>La maison Ishango a à son sein des bonnes places pour faire vos rencontres ou réunions.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-6">
+                <div class="our_gallery_item">
+                    <img src="~/lib/bootstrap/dist/img/gallery/our-ms-gallery/gallery-2-2-2.png" alt="">
+                    <div class="our_gallery_hover">
+                        <a href="#"><i class="fa fa-link"></i></a>
+                        <a href="#"><h5>Ishango coktail</h5></a>
+                        <p>Voici l'exemple d'une bonne décoration pour un coktail, des places confortables.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-6">
+                <div class="our_gallery_item">
+                    <img src="~/lib/bootstrap/dist/img/gallery/our-ms-gallery/gallery-5-5.png" alt="">
+                    <div class="our_gallery_hover">
+                        <a href="#"><i class="fa fa-link"></i></a>
+                        <a href="#"><h5>Couple Leon</h5></a>
+                        <p>Leon Maliona, le DG de la maison Ishango avec sa femme, maman Deborah.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-6">
+                <div class="our_gallery_item">
+                    <img src="~/lib/bootstrap/dist/img/gallery/our-ms-gallery/gallery-3.png" alt="">
+                    <div class="our_gallery_hover">
+                        <a href="#"><i class="fa fa-link"></i></a>
+                        <a href="#"><h5>Cuisine</h5></a>
+                        <p>Le maitre cuisinier entrain de griller des viandes de poule.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-6">
+                <div class="our_gallery_item">
+                    <img src="~/lib/bootstrap/dist/img/gallery/our-ms-gallery/gallery-4.png" alt="">
+                    <div class="our_gallery_hover">
+                        <a href="#"><i class="fa fa-link"></i></a>
+                        <a href="#"><h5>Musique</h5></a>
+                        <p>Voici ce que ressemble l'éspace pour la musique chez Ishango.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-6">
+                <div class="our_gallery_item">
+                    <img src="~/lib/bootstrap/dist/img/gallery/our-ms-gallery/gallery-equipe.png" alt="">
+                    <div class="our_gallery_hover">
+                        <a href="#"><i class="fa fa-link"></i></a>
+                        <a href="#"><h5>Equipe</h5></a>
+                        <p>Le gérant de la maison avec son équipe des barmaids</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-6">
+                <div class="our_gallery_item">
+                    <img src="~/lib/bootstrap/dist/img/gallery/our-ms-gallery/gallery-5-5-1.png" alt="">
+                    <div class="our_gallery_hover">
+                        <a href="#"><i class="fa fa-link"></i></a>
+                        <a href="#"><h5>Equipe</h5></a>
+                        <p>Ils sont parmi l'équipe forte de la maison Ishango.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-6">
+                <div class="our_gallery_item">
+                    <img src="~/lib/bootstrap/dist/img/gallery/our-ms-gallery/gallery-leon.png" alt="">
+                    <div class="our_gallery_hover">
+                        <a href="#"><i class="fa fa-link"></i></a>
+                        <a href="#"><h5>Leon Maliona</h5></a>
+                        <p>Le directeur de la maison Ishango entrain de tenir une conférence.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-6">
+                <div class="our_gallery_item">
+                    <img src="~/lib/bootstrap/dist/img/gallery/our-ms-gallery/galler-place.png" alt="">
+                    <div class="our_gallery_hover">
+                        <a href="#"><i class="fa fa-link"></i></a>
+                        <a href="#"><h5>Places confortables</h5></a>
+                        <p>Les bonnes places chez Ishango ou vous pouvez siroter votre boisson sans vous soucis.</p>
+                    </div>
+                </div>
+            </div>
+            @*<div class="col-md-4 col-sm-6">
+                    <div class="our_gallery_item">
+                        <img src="@Model.image" alt="">
+                        <div class="our_gallery_hover">
+                            <a href="#"><i class="fa fa-link"></i></a>
+                            <a href="#"><h5>@Model.nomImage</h5></a>
+                            <p>@Model.descriptionImage</p>
+                        </div>
+                    </div>
+                </div>*@
+        </div>
+        <div class="row">
+            <div class="pager col-ms-offset-4">
+                <ul>
+                    <li><a href="#"><<</a></li>
+                    <li class="btn btn-primary"><a href="#">1</a></li>
+                    <li><a href="#">2</a></li>
+                    <li><a href="#">3</a></li>
+                    <li><a href="#">4</a></li>
+                    <li><a href="#">>></a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+<!--================End Our Gallery Area =================-->
