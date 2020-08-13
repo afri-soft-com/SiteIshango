@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" href="img/express-favicon.png" type="image/x-icon" />
+    <base href="~/" />
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <title>@ViewData["Title"]- Ishango</title>
 
@@ -142,11 +143,11 @@
             </div><!-- /.container-fluid -->
         </nav>
     </header>
-        <div class="container>
-            <main role="main" class="pb-3">
-                @RenderBody()
-            </main>
-        </div>
+    <div class="container>
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
     <footer class="footer_area">
         <div class="footer_widget_area">
             <div class="container">
@@ -228,7 +229,7 @@
                         <li class="active"><a asp-area="" asp-controller="Home" asp-action="Index">Accuiel</a></li>
                         <li><a asp-area="" asp-controller="Home" asp-action="About">A propos de nous</a></li>
                         <li><a asp-area="" asp-controller="Home" asp-action="Menu">Menu</a></li>
-                        <li><a asp-area="" asp-controller="Home" asp-action="Gallery">Gallery</a></li>                        
+                        <li><a asp-area="" asp-controller="Home" asp-action="Gallery">Gallery</a></li>
                         <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contacter nous</a></li>
                     </ul>
                 </div>
@@ -261,6 +262,8 @@
     <!--        <script src="js/gmaps.min.js"></script>-->
     <!--        <script src="js/video_player.js"></script>-->
     <script src="~/lib/bootstrap/dist/js/theme.js"></script>
+    <script src="_framework/blazor.server.js"></script>
+    <script src="_content/BlazorInputFile/inputfile.js"></script>
 
 </body>
 </html>
