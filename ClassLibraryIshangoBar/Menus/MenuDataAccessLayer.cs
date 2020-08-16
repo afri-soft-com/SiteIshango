@@ -9,7 +9,7 @@ namespace ClassLibraryIshangoBar.Menus
     public class MenuDataAccessLayer
     {
         // Methode pour inserer les menus dans la base des donnees
-        public int InsertMenu(MenuModel menuModel)
+        public int InsertMenu(MenuModel menuModel , string PathName)
         {
             using (SqlConnection connexion = new SqlConnection(ConnexionClass.SetConnexion()))
             {
@@ -20,12 +20,18 @@ namespace ClassLibraryIshangoBar.Menus
                                  " VALUES(@imageMenu, @descriptionMenu, @prixMenu)";
                 SqlCommand commande = new SqlCommand(query, connexion);
 
-                commande.Parameters.AddWithValue("@imageMenu", "OK");
+                commande.Parameters.AddWithValue("@imageMenu", PathName);
                 commande.Parameters.AddWithValue("@descriptionMenu", menuModel.DescriptionMenu);
                 commande.Parameters.AddWithValue("@prixMenu", menuModel.PrixMenu);
 
+                //commande.Parameters.AddWithValue("@imageMenu", "steve");
+                //commande.Parameters.AddWithValue("@descriptionMenu", "oko");
+                //commande.Parameters.AddWithValue("@prixMenu", "ok");
+
                 return commande.ExecuteNonQuery();
+               // connexion.Close();
             }
+            
         }
 
         // Methode pour retrieve les menus dans la base des donnees
@@ -61,5 +67,55 @@ namespace ClassLibraryIshangoBar.Menus
 
             return listeMenu;
         }
+
+
+        public String GetDernierDUCodeMenU()
+        {
+            using (SqlConnection connexion = new SqlConnection(ConnexionClass.SetConnexion()))
+            {
+                connexion.Open();
+
+                string query = "SELECT        MAX(idMenu) AS MaxIdMenu FROM            tMenu";
+                SqlCommand commande = new SqlCommand(query, connexion);
+
+               
+                string NomImage;
+                NomImage ="Image"+ commande.ExecuteScalar().ToString() ;
+                return NomImage;
+            }
+        }
+
+
+        //public  String GetDernierDUCodeMeni()
+        //{
+        //    List<MenuModel> listeMenu = new List<MenuModel>();
+
+        //    using (SqlConnection connection = new SqlConnection(ConnexionClass.SetConnexion()))
+        //    {
+               
+
+        //        SqlCommand commande = new SqlCommand(query, connection);
+        //        commande.CommandType = CommandType.Text;
+
+        //        connection.Open();
+
+        //        SqlDataReader reader = commande.ExecuteReader();
+        //        while (reader.Read())
+        //        {
+        //            MenuModel menuModel = new MenuModel();
+
+        //            menuModel.IdMenu = Convert.ToInt32(reader["idMenu"]);
+        //            menuModel.ImageMenu = reader["imageMenu"].ToString();
+        //            menuModel.DescriptionMenu = reader["descriptionMenu"].ToString();
+        //            menuModel.PrixMenu = reader["prixMenu"].ToString();
+
+        //            listeMenu.Add(menuModel);
+
+        //        }
+        //        connection.Close();
+        //    }
+
+        //    return listeMenu;
+        //}
     }
 }
