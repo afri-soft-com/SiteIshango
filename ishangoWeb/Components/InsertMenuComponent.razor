@@ -30,18 +30,20 @@
 @code {
 
     MenuModel menu = new MenuModel();
-
+    string NomdeFichier;
     IFileListEntry imageMenu;
 
 
     async Task HandleValidSubmit()
     {
-        menuDAL.InsertMenu(menu);
+        // menuDAL.InsertMenu(menu);
 
         if (imageMenu != null)
         {
-            await SaveMenu(imageMenu, menuDAL.GetLesMenus().First());
-            menu = default;
+
+            await SaveMenu(imageMenu);
+
+            // menu = default;
         }
     }
 
@@ -50,22 +52,61 @@
     {
         imageMenu = files.First();
     }
+    // public async Task SaveMenu(IFileListEntry file, MenuModel menuModel)
 
-    public async Task SaveMenu(IFileListEntry file, MenuModel menuModel)
+    public async Task SaveMenu(IFileListEntry file)
     {
-        var profileUploads = Path.Combine(Environment.WebRootPath, $"uploads/piece/{menuModel.IdMenu}");
+        // recuperation du derneir enregistement
+        NomdeFichier = menuDAL.GetDernierDUCodeMenU();
+
+        // Creation de dossier
+        var profileUploads = Path.Combine(Environment.WebRootPath, $"uploads/IMAGEmenu");
         if (!Directory.Exists(profileUploads))
             Directory.CreateDirectory(profileUploads);
         if (file.Data.Length > 0)
         {
+
+
+            // diviser le nom deu fichie pour recupere l' extension
             var fileNameArray = file.Name.Split(".");
-            var fileName = $"{fileNameArray.FirstOrDefault()}.{fileNameArray.LastOrDefault() ?? "png"}";
+            // Le nom avvec l' extension
+            var fileName = NomdeFichier + $".{fileNameArray.LastOrDefault() ?? "png"}";
+
+            //UPLOAL
             using var fileStream = new FileStream(Path.Combine(profileUploads, fileName), FileMode.Create);
+            
             await file.Data.CopyToAsync(fileStream);
             var filePath = fileStream.Name.Replace(Environment.WebRootPath, UriHelper.BaseUri);
             var fileWebPath = filePath.Replace("\\", "/");
-            menuModel.ImageMenu = fileWebPath;
+
+           //  Enregistrment  dans la bd 
+            menuDAL.InsertMenu(menu, fileWebPath);
         }
     }
+
+
+    //public  void SaveMenu(IFileListEntry file, string nomduFchier)
+    //{
+    //    // var profileUploads = Path.Combine(Environment.WebRootPath, $"uploads/piece/{menuModel.IdMenu}");
+    //    var profileUploads = Path.Combine(Environment.WebRootPath, $"uploads/IMAGEmenu");
+    //    if (!Directory.Exists(profileUploads))
+    //        Directory.CreateDirectory(profileUploads);
+    //    if (file.Data.Length > 0)
+    //    {
+    //        var fileNameArray = file.Name.Split(".");
+    //        //var fileName = $"{fileNameArray.FirstOrDefault()}.{fileNameArray.LastOrDefault() ?? "png"}";
+    //        var fileName = nomduFchier + $".{fileNameArray.LastOrDefault() ?? "png"}";
+    //        // var fileName = "nomduFchier";
+    //        using var fileStream = new FileStream(Path.Combine(profileUploads, fileName), FileMode.Create);
+    //        //using var fileStream = new FileStream(Path.Combine(profileUploads, nomduFchier), FileMode.Create);
+    //         file.Data.CopyToAsync(fileStream);
+    //        var filePath = fileStream.Name.Replace(Environment.WebRootPath, UriHelper.BaseUri);
+    //        var fileWebPath = filePath.Replace("\\", "/");
+    //        // menuModel.ImageMenu = fileWebPath;
+    //        menu.ImageMenu = fileWebPath;
+    //       menuDAL.InsertMenu(menu, fileWebPath);
+    //    }
+
+
 
 }
