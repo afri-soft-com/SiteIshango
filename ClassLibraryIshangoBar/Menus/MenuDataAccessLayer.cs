@@ -80,7 +80,7 @@ namespace ClassLibraryIshangoBar.Menus
 
                
                 string NomImage;
-                NomImage ="Image"+ commande.ExecuteScalar().ToString() ;
+                NomImage = "Image" + (Convert.ToInt64( commande.ExecuteScalar() )+1).ToString();
                 return NomImage;
             }
         }
