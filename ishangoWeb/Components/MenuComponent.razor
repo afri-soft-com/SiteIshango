@@ -1,0 +1,106 @@
+﻿@using ClassLibraryIshangoBar.Menus
+@using System.IO
+@using Microsoft.AspNetCore.Hosting;
+@inject Microsoft.AspNetCore.Components.NavigationManager UriHelper
+@inject IWebHostEnvironment Environment
+
+@inject MenuDataAccessLayer menuDAL
+
+
+
+<section class="most_popular_item_area menu_list_page">
+    <div class="container">
+        <div class="popular_filter">
+            <ul>
+                <li class="active" data-filter="*"><a href="">Tout</a></li>
+                <li data-filter=".entree_froide"><a href="">Entrées froides</a></li>
+                <li data-filter=".assiettes"><a href="">Assiettes</a></li>
+                <li data-filter=".viandes"><a href="">Viandes/Meat</a></li>
+                <li data-filter=".poulet"><a href="">Poulet/Chicken</a></li>
+                <li data-filter=".poisson"><a href="">Poisson/Fish</a></li>
+                <li data-filter=".pizzas"><a href="">Pizzas</a></li>
+                <li data-filter=".omelettes"><a href="">Omelettes</a></li>
+                <li data-filter=".pate_maison"><a href="">Pates maison</a></li>
+                <li data-filter=".Burgers_sandwiches"><a href="">Burgers et sandwiches</a></li>
+                <li data-filter=".autres"><a href="">Autres</a></li>
+            </ul>
+        </div>
+        <div class="p_recype_item_main">
+            <div class="row p_recype_item_active">
+
+                @foreach (var item in listeMenu)
+                {
+                    <div class="col-md-4 col-sm-6 entree_froide">
+                        <div class="feature_item">
+                            <div class="feature_item_inner">
+                                <img src="@item.ImageMenu" alt="">
+
+                            </div>
+                        </div>
+                        <div class="title_text"
+                             style="background: #b10400;
+                                    padding: 18px 10px;">
+                            <div class="feature_left">
+                                 <a href="#"
+                                    style="color: #fff;
+                                      font-family: Cantata One, serif;
+                                      font-size: 16px;
+                                      text-transform: uppercase;">
+                               <span>@item.DescriptionMenu</span></a></div>
+                            <div class="restaurant_feature_dots"
+                                 style="color:#fff;"></div>
+                            <div class="feature_right"
+                                 style="    font-family:Cantata One, serif;
+                                            font-size: 16px;
+                                            text-transform: uppercase;
+                                            color: #fff;">$ @item.PrixMenu</div>
+                        </div>
+                    </div>
+                }
+
+            </div>
+
+
+        </div>
+    </div>
+</section>
+
+<table class="table table-responsive table-striped table-bordered">
+    <caption>
+        <h3></h3>
+    </caption>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>IMAGE</th>
+            <th>DESCRIPTION</th>
+            <th>PRIX</th>
+        </tr>
+    </thead>
+    <tbody>
+
+        @foreach (var item in listeMenu)
+        {
+
+            <tr>
+                <td>@item.IdMenu</td>
+                <td>@item.ImageMenu</td>
+                <td>@item.DescriptionMenu</td>
+                <td>@item.PrixMenu</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@code {
+
+    MenuModel menuModel = new MenuModel();
+
+    IEnumerable<MenuModel> listeMenu;
+
+    protected override void OnInitialized()
+    {
+        listeMenu = menuDAL.GetLesMenus();
+    }
+
+}

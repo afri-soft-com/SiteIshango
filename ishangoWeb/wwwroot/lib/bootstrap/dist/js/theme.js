@@ -132,7 +132,7 @@
     /*  Next Event Slider
     /*----------------------------------------------------*/
     function next_event_slider(){
-        if ( $('.next_event_slider').length ){
+        if ($('.next_event_slider').length ){
             $('.next_event_slider').owlCarousel({
                 loop:true,
                 margin:30,

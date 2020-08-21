@@ -1,0 +1,41 @@
+﻿@using ishangoWeb.Components
+
+@{
+    ViewData["Title"] = "AjouterEvent";
+}
+
+<!--================Banner Area =================-->
+<div class="container-fluid" style="background:url(../lib/bootstrap/dist/img/banner/banner-bg-1.jpg) no-repeat scroll center center;
+                                        background-size:cover;min-height:250px;">
+    <section class="banner_area">
+        <div class="container">
+            <div class="banner_content">
+                <h4>Administration</h4>
+                <a></a>
+                <a class="active">Poster des évenements</a>
+            </div>
+        </div>
+    </section>
+</div>
+<!--================End Banner Area =================-->
+
+<div class="container" style="margin:30px;">
+
+    <div class="row" style="margin:10px;">
+        <h2 style="color:#b10400;text-align:center;border:1px solid #b10400;
+            padding:7px;">
+            ENREGISTRER LES EVENEMENTS ET LEURS DIFFERENTS DETAILS
+        </h2>
+    </div>
+    <div class="row" style="margin-top:30px;">
+
+        <div class="col-lg-4 col-sm-12 col-xs-12">
+            @*<img src="~/lib/bootstrap/dist/img/imges/menuJ.png" class="img-responsive img-rounded" />*@
+        </div>
+        <div></div>
+        <div class="col-lg-8">
+            <component type="typeof(InsertEventComponent)" render-mode="ServerPrerendered" />
+        </div>
+
+    </div>
+</div>

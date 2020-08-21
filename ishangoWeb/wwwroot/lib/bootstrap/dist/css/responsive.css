@@ -25,7 +25,7 @@
     .chefs_slider_active .chef_item_inner .chef_img .chef_hover h4 {
         margin: 10px 0px 20px 0px;
     }
-    .next_event_area .next_event_slider .left_event_img img{
+    .next_event_area .next_event_slider_test .left_event_img img {
         min-height: 306px;
     }
 /*
@@ -101,7 +101,7 @@
     .most_popular_item_area .p_recype_item_main .media .media-body p {
         padding: 5px 0px 15px 0px;
     }
-    .next_event_area .next_event_slider .left_event_img img{
+    .next_event_area .myslide_next .left_event_img img {
         min-height: auto;
     }
     .recent_bloger_area .recent_blog_item {
@@ -281,12 +281,12 @@
     .most_popular_item_area .p_recype_item_main .media .media-body {
         padding-bottom: 15px;
     }
-    .next_event_area .next_event_slider .right_event_text {
+    .next_event_area .myslide_next .right_event_text {
         padding-left: 20px;
     }
-    .next_event_area .next_event_slider .right_event_text .event_shedule .item {
-        margin-bottom: 20px;
-    }
+        .next_event_area .myslide_next .right_event_text .event_shedule .item {
+            margin-bottom: 20px;
+        }
     .slider_area .slider_inner .rev_slider .tp-revslider-mainul li .slider_text_box .bg_box {
         display: none;
     }

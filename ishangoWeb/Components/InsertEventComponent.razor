@@ -1,0 +1,118 @@
+﻿@using ClassLibraryIshangoBar.Evenements
+@using System.IO
+@using Syncfusion.Blazor.PivotView
+@using Microsoft.AspNetCore.Hosting;
+@inject Microsoft.AspNetCore.Components.NavigationManager UriHelper
+@inject IWebHostEnvironment Environment
+@inject EvenementDataAccessLayer eventDAL
+
+
+
+<EditForm Model="eventModel" OnSubmit="HandleValidSubmit">
+
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <div class="form-group col-md-12">
+        <InputFile OnChange="HandleFileSelected" class="form-control" placeholder="image*" />
+    </div>
+    <div class="form-group col-md-12">
+        <InputText @bind-Value="eventModel.TitreEvenement" class="form-control" placeholder="Titre*" />
+    </div>
+    <div class="form-group col-md-12">
+        <InputText @bind-Value="eventModel.DescriptionEvenement" class="form-control" placeholder="Description*" />
+    </div>
+    <div class="form-group col-md-12">
+        <button class="btn btn-default submit_btn" type="submit">Enregistrer</button>
+    </div>
+
+</EditForm>
+
+
+<table class="table table-responsive table-striped table-bordered">
+    <caption>
+        <h3></h3>
+    </caption>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>IMAGE</th>
+            <th>TITRE EVENEMENT</th>
+            <th>DESCRIPTION</th>
+        </tr>
+    </thead>
+    <tbody>
+
+        @foreach (var item in listeEvenement)
+        {
+
+            <tr>
+                <td>@item.IdEvenement</td>
+                <td>@item.ImageEvenement</td>
+                <td>@item.TitreEvenement</td>
+                <td>@item.DescriptionEvenement</td>
+                <td><button class="btn btn-primary">Modifier</button></td>
+                <td><button class="btn btn-danger">Supprimer</button></td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+@code {
+
+    EvenementModel eventModel = new EvenementModel();
+    string NomdeFichier;
+    IFileListEntry imageEvent;
+    IEnumerable<EvenementModel> listeEvenement;
+
+    protected override void OnInitialized()
+    {
+        listeEvenement = eventDAL.GetLesEvents();
+    }
+
+    async Task HandleValidSubmit()
+    {
+        //eventDAL.SaveEvent(eventModel);
+        if (imageEvent != null)
+        {
+            await SaveFileEvent(imageEvent);
+        }
+    }
+
+    void HandleFileSelected(IFileListEntry[] files)
+    {
+        imageEvent = files.First();
+    }
+
+    public async Task SaveFileEvent(IFileListEntry file)
+    {
+        // recuperation du derneir enregistement
+        NomdeFichier = eventDAL.GetDernierDUCodeEvent();
+
+        // Creation de dossier
+        var profileUploads = Path.Combine(Environment.WebRootPath, $"uploads/IMAGEEvent");
+        if (!Directory.Exists(profileUploads))
+            Directory.CreateDirectory(profileUploads);
+        if (file.Data.Length > 0)
+        {
+
+
+            // diviser le nom deu fichie pour recupere l' extension
+            var fileNameArray = file.Name.Split(".");
+            // Le nom avvec l' extension
+            var fileName = NomdeFichier + $".{fileNameArray.LastOrDefault() ?? "png"}";
+
+            //UPLOAL
+            using var fileStream = new FileStream(Path.Combine(profileUploads, fileName), FileMode.Create);
+
+            await file.Data.CopyToAsync(fileStream);
+            var filePath = fileStream.Name.Replace(Environment.WebRootPath, UriHelper.BaseUri);
+            var fileWebPath = filePath.Replace("\\", "/");
+
+            //  Enregistrment  dans la bd
+            eventDAL.SaveEvent(eventModel, fileWebPath);
+        }
+    }
+}
+

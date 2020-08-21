@@ -1,5 +1,6 @@
 ﻿@using ClassLibraryIshangoBar.Menus
 @using System.IO
+@using Syncfusion.Blazor.PivotView
 @using Microsoft.AspNetCore.Hosting;
 @inject Microsoft.AspNetCore.Components.NavigationManager UriHelper
 @inject IWebHostEnvironment Environment
@@ -27,16 +28,56 @@
 
     </EditForm>
 
+    <div></div>
+    <hr />
+
+
+    <table class="table table-responsive table-striped table-bordered">
+        <caption>
+            <h3></h3>
+        </caption>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>IMAGE</th>
+                <th>DESCRIPTION</th>
+                <th>PRIX</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            @foreach (var item in listeMenu)
+            {
+
+            <tr>
+                <td>@item.IdMenu</td>
+                <td>@item.ImageMenu</td>
+                <td>@item.DescriptionMenu</td>
+                <td>@item.PrixMenu</td>
+                <td><button class="btn btn-primary" >Modifier</button></td>
+                <td><button class="btn btn-danger" >Supprimer</button></td>
+            </tr>
+            }
+        </tbody>
+    </table>
+
 @code {
 
     MenuModel menu = new MenuModel();
     string NomdeFichier;
     IFileListEntry imageMenu;
+    IEnumerable<MenuModel> listeMenu;
+
+    protected override void OnInitialized()
+    {
+        listeMenu = menuDAL.GetLesMenus();
+    }
 
 
     async Task HandleValidSubmit()
     {
         // menuDAL.InsertMenu(menu);
+        listeMenu = menuDAL.GetLesMenus();
 
         if (imageMenu != null)
         {
@@ -46,6 +87,8 @@
             // menu = default;
         }
     }
+
+
 
 
     void HandleFileSelected(IFileListEntry[] files)
@@ -74,39 +117,16 @@
 
             //UPLOAL
             using var fileStream = new FileStream(Path.Combine(profileUploads, fileName), FileMode.Create);
-            
+
             await file.Data.CopyToAsync(fileStream);
             var filePath = fileStream.Name.Replace(Environment.WebRootPath, UriHelper.BaseUri);
             var fileWebPath = filePath.Replace("\\", "/");
 
-           //  Enregistrment  dans la bd 
-            menuDAL.InsertMenu(menu, fileWebPath);
+            //  Enregistrment  dans la bd 
+            //menuDAL.InsertMenu(menu, fileWebPath);
+            menuDAL.TestSave(menu, fileWebPath);
         }
     }
-
-
-    //public  void SaveMenu(IFileListEntry file, string nomduFchier)
-    //{
-    //    // var profileUploads = Path.Combine(Environment.WebRootPath, $"uploads/piece/{menuModel.IdMenu}");
-    //    var profileUploads = Path.Combine(Environment.WebRootPath, $"uploads/IMAGEmenu");
-    //    if (!Directory.Exists(profileUploads))
-    //        Directory.CreateDirectory(profileUploads);
-    //    if (file.Data.Length > 0)
-    //    {
-    //        var fileNameArray = file.Name.Split(".");
-    //        //var fileName = $"{fileNameArray.FirstOrDefault()}.{fileNameArray.LastOrDefault() ?? "png"}";
-    //        var fileName = nomduFchier + $".{fileNameArray.LastOrDefault() ?? "png"}";
-    //        // var fileName = "nomduFchier";
-    //        using var fileStream = new FileStream(Path.Combine(profileUploads, fileName), FileMode.Create);
-    //        //using var fileStream = new FileStream(Path.Combine(profileUploads, nomduFchier), FileMode.Create);
-    //         file.Data.CopyToAsync(fileStream);
-    //        var filePath = fileStream.Name.Replace(Environment.WebRootPath, UriHelper.BaseUri);
-    //        var fileWebPath = filePath.Replace("\\", "/");
-    //        // menuModel.ImageMenu = fileWebPath;
-    //        menu.ImageMenu = fileWebPath;
-    //       menuDAL.InsertMenu(menu, fileWebPath);
-    //    }
-
 
 
 }

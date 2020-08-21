@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Text;
 using System.Data;
+using System.Runtime.InteropServices.ComTypes;
 
 namespace ClassLibraryIshangoBar.Menus
 {
@@ -32,6 +33,28 @@ namespace ClassLibraryIshangoBar.Menus
                // connexion.Close();
             }
             
+        }
+
+        //Test enregistrement
+
+        public int TestSave(MenuModel menu, string path)
+        {
+            using (SqlConnection connection = new SqlConnection(ConnexionClass.SetConnexion()))
+            {
+                connection.Open();
+
+                string requette = "INSERT INTO tMenu"+
+                                 " (imageMenu, descriptionMenu, prixMenu)"+
+                                   " VALUES(@imageMenu, @descriptionMenu, @prixMenu)";
+
+                SqlCommand commande = new SqlCommand(requette, connection);
+
+                commande.Parameters.AddWithValue("@imageMenu", path);
+                commande.Parameters.AddWithValue("@descriptionMenu", menu.DescriptionMenu);
+                commande.Parameters.AddWithValue("@prixMenu", menu.PrixMenu);
+
+                return commande.ExecuteNonQuery();
+            }
         }
 
         // Methode pour retrieve les menus dans la base des donnees

@@ -1,0 +1,25 @@
+﻿@using ishangoWeb.Components
+@using ishangoWeb.Models
+
+@{
+    ViewData["Title"] = "Menuu";
+}
+
+<div class="container-fluid" style="background:url(../lib/bootstrap/dist/img/banner/banner-bg-1.jpg) no-repeat scroll center center;
+                                        background-size:cover;">
+    <section class="banner_area">
+        <div class="container">
+            <div class="banner_content">
+                <h4>A propos de Ishango</h4>
+                <a asp-area="" asp-controller="Home" asp-action="Index">Accueil</a>
+                <a class="active" asp-area="" asp-controller="Home" asp-action="about">A propos de nous</a>
+            </div>
+        </div>
+    </section>
+</div>
+
+<!--================End Our feature Area =================-->
+
+<component type="typeof(MenuComponent)" render-mode="ServerPrerendered" />
+
+

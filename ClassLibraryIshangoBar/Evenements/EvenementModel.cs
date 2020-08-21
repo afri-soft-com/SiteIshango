@@ -4,7 +4,11 @@ using System.Text;
 
 namespace ClassLibraryIshangoBar.Evenements
 {
-    class EvenementModel
+    public class EvenementModel
     {
+        public int IdEvenement { get; set; }
+        public string ImageEvenement { get; set; }
+        public string TitreEvenement { get; set; }
+        public string DescriptionEvenement { get; set; }
     }
 }

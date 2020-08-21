@@ -24,5 +24,10 @@ namespace ishangoWeb.Controllers
         {
             return View();
         }
+
+        public IActionResult AjouterEvent()
+        {
+            return View();
+        }
     }
 }

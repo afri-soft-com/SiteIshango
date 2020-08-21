@@ -42,6 +42,10 @@ namespace ishangoWeb.Controllers
         {
             return View();
         }
+        public IActionResult Menuu()
+        {
+            return View();
+        }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
