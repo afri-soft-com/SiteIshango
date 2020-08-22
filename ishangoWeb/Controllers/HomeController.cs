@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using ishangoWeb.Models;
+using ClassLibraryIshangoBar.Evenements;
+using ClassLibraryIshangoBar.Menus;
 
 namespace ishangoWeb.Controllers
 {
@@ -20,7 +22,12 @@ namespace ishangoWeb.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            EvenementDataAccessLayer eventsDAL = new EvenementDataAccessLayer();
+            IEnumerable<EvenementModel> events = new List<EvenementModel>();
+
+            events = eventsDAL.GetLesEvents();
+
+            return View(events);
         }
 
         public IActionResult About()
@@ -40,7 +47,11 @@ namespace ishangoWeb.Controllers
 
         public IActionResult Menu()
         {
-            return View();
+            MenuDataAccessLayer menuDAL = new MenuDataAccessLayer();
+            IEnumerable<MenuModel> menus = new List<MenuModel>();
+            menus = menuDAL.GetLesMenus();
+
+            return View(menus);
         }
         public IActionResult Menuu()
         {

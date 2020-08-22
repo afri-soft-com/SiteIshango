@@ -1,4 +1,6 @@
 ﻿@using ishangoWeb.Components
+@using ClassLibraryIshangoBar.Evenements
+@model IEnumerable<ClassLibraryIshangoBar.Evenements.EvenementModel>
 
 @{
     ViewData["Title"] = "Index";
@@ -781,4 +783,47 @@
 </section>
 <!--================End Our Chefs Area =================-->
 <!--================End Our Chefs Area =================-->
-<component type="typeof(EventComponent)" render-mode="ServerPrerendered" />
+
+<section class="next_event_area">
+    <div class="container">
+        <div class="s_white_red_title">
+            <h3>Evenements</h3>
+            <h2>Les évenements de la semaine</h2>
+        </div>
+
+
+        
+        <div class="myslide_next">
+            @foreach (var item in Model)
+            {
+
+                <div class="item">
+
+                    <div class="col-md-6">
+                        <div class="row">
+                            <div class="left_event_img">
+                                <img src="@item.ImageEvenement" alt="">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="row">
+                            <div class="right_event_text">
+                                <a href="#"><h3>@item.TitreEvenement</h3></a>
+                                <p>@item.DescriptionEvenement</p>
+                                <div class="event_shedule">
+                                    <time datetime="P65DT05H16M22S"></time>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <hr />
+
+                </div>
+
+            }
+            </div>
+        
+    </div>
+
+</section>
